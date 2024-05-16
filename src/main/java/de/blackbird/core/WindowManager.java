@@ -106,6 +106,10 @@ public class WindowManager
         return GLFW.glfwGetKey(window, keycode) == GLFW.GLFW_PRESS;
     }
 
+    public boolean windowShoulClose(){
+        return GLFW.glfwWindowShouldClose(window);
+    }
+
     public boolean isResize(){
         return resize;
     }
@@ -116,6 +120,40 @@ public class WindowManager
 
     private void setResize(boolean resize) {
         this.resize = resize;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title){
+        GLFW.glfwSetWindowTitle(window, title);
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public long getWindow() {
+        return window;
+    }
+
+    public Matrix4f getProjectionMatrix() {
+        return projectionMatrix;
+    }
+
+    public Matrix4f updateProjectionMatrix(){
+        float aspectRatio = (float) width / height;
+        return projectionMatrix.setPerspective(FOV, aspectRatio, Z_NEAR, Z_FAR);
+    }
+
+    public Matrix4f updateProjectionMatrix(Matrix4f matrix, int width, int height) {
+        float aspectRatio = (float) width / height;
+        return matrix.setPerspective(FOV, aspectRatio, Z_NEAR, Z_FAR);
     }
 }
 
